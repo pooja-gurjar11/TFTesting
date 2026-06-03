@@ -9,7 +9,7 @@
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <aside
   class="announcement-bar spacing-style section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
-  style="{% render 'spacing-padding', settings: section.settings %}; --border-bottom-width: {{ section.settings.divider_width }}px;"
+  style="{% render 'spacing-padding', settings: section.settings %}; --border-bottom-width: {{ section.settings.divider_width }}px; position: relative;"
 >
   {% liquid
     assign autoplay = false
@@ -34,6 +34,17 @@
       {% content_for 'blocks' %}
     </div>
   </announcement-bar-component>
+
+  {% if section.settings.utility_links_menu != blank %}
+    <div class="announcement-bar__utility-links">
+      {% for link in section.settings.utility_links_menu.links %}
+        <a href="{{ link.url }}" class="announcement-bar__utility-link">{{ link.title }}</a>
+        {% unless forloop.last %}
+          <span class="announcement-bar__utility-separator">|</span>
+        {% endunless %}
+      {% endfor %}
+    </div>
+  {% endif %}
 </aside>
 
 {% stylesheet %}
@@ -119,6 +130,37 @@
     position: absolute;
     inset: 0;
   }
+
+  .announcement-bar__utility-links {
+    position: absolute;
+    right: var(--padding-xl);
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: var(--gap-2xs);
+    align-items: center;
+    z-index: 1;
+  }
+
+  .announcement-bar__utility-link {
+    color: var(--color-foreground);
+    text-decoration: underline;
+    font-size: var(--font-size--sm);
+    line-height: 1.15;
+    white-space: nowrap;
+  }
+
+  .announcement-bar__utility-separator {
+    color: var(--color-foreground);
+    font-size: var(--font-size--sm);
+    line-height: 1.15;
+  }
+
+  @media screen and (max-width: 749px) {
+    .announcement-bar__utility-links {
+      display: none;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -141,6 +183,11 @@
       "max": 10,
       "default": 5,
       "unit": "sec"
+    },
+    {
+      "type": "link_list",
+      "id": "utility_links_menu",
+      "label": "Utility links"
     },
     {
       "type": "header",
