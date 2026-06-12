@@ -680,6 +680,15 @@
     display: contents;
   }
 
+  /* Top-level desktop nav: #414141, weight 500, matching Figma */
+  @media screen and (min-width: 750px) {
+    #header-component[data-menu-style='menu'] nav.menu-list {
+      --menu-top-level-font-color: #414141 !important;
+      --menu-top-level-font-color-rgb: 65, 65, 65 !important;
+      --menu-top-level-font-weight: 500 !important;
+    }
+  }
+
   /* Mega menu parent link overrides for Figma typography */
   .mega-menu__link--parent {
     text-transform: uppercase;
