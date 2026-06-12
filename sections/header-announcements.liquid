@@ -35,7 +35,11 @@
     </div>
   </announcement-bar-component>
 
-  {% if section.settings.utility_links_menu != blank %}
+  {% if section.settings.utility_links_text != blank %}
+    <div class="announcement-bar__utility-links announcement-bar__utility-links--text">
+      {{ section.settings.utility_links_text }}
+    </div>
+  {% elsif section.settings.utility_links_menu != blank %}
     <div class="announcement-bar__utility-links">
       {% for link in section.settings.utility_links_menu.links %}
         <a href="{{ link.url }}" class="announcement-bar__utility-link">{{ link.title }}</a>
@@ -126,6 +130,11 @@
     margin: 0;
   }
 
+  .announcement-bar__text a {
+    color: var(--color-foreground);
+    text-decoration: underline;
+  }
+
   .announcement-bar__link {
     position: absolute;
     inset: 0;
@@ -144,16 +153,40 @@
 
   .announcement-bar__utility-link {
     color: var(--color-foreground);
-    text-decoration: underline;
+    text-decoration: none;
     font-size: var(--font-size--sm);
     line-height: 1.15;
     white-space: nowrap;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .announcement-bar__utility-separator {
     color: var(--color-foreground);
     font-size: var(--font-size--sm);
     line-height: 1.15;
+  }
+
+  .announcement-bar__utility-links--text {
+    color: var(--color-foreground);
+    font-size: var(--font-size--sm);
+    line-height: 1.15;
+    white-space: nowrap;
+    display: flex;
+    gap: var(--gap-2xs);
+    align-items: center;
+
+    a {
+      color: var(--color-foreground);
+      text-decoration: none;
+      white-space: nowrap;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   @media screen and (max-width: 749px) {
@@ -185,9 +218,15 @@
       "unit": "sec"
     },
     {
+      "type": "inline_richtext",
+      "id": "utility_links_text",
+      "label": "Utility links text",
+      "info": "Displays on the right side of the announcement bar (desktop only). Overrides the menu below when set."
+    },
+    {
       "type": "link_list",
       "id": "utility_links_menu",
-      "label": "Utility links"
+      "label": "Utility links menu"
     },
     {
       "type": "header",

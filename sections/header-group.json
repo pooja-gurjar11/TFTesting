@@ -17,7 +17,7 @@
         "announcement_BxgCk9": {
           "type": "_announcement",
           "settings": {
-            "text": "Free Shipping on orders $49.99+",
+            "text": "Free Shipping on orders $49.99+ <a href=\"/collections/all\">Shop now</a>",
             "link": "",
             "font": "var(--font-subheading--family)",
             "font_size": "0.75rem",
@@ -34,6 +34,7 @@
       "name": "t:names.announcement_bar",
       "settings": {
         "speed": 5,
+        "utility_links_text": "<a href=\"/pages/store-locator\">Store Locator</a> | <a href=\"/pages/humann-professional\">Humann Professional</a>",
         "utility_links_menu": "utility-links",
         "section_width": "page-width",
         "color_scheme": "scheme-7",
